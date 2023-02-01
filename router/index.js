@@ -144,16 +144,11 @@ app.use('/api/products', productsRouter);
 app.use('/api/carts', cartsRouter);
 app.use('*', notFound);
 
-if (DB === "FileSystem") {
-    const PORT = 8080;
-    const serverFS = app.listen(PORT, () => {
-        console.log(`Servidor de FileSystem escuchando en el puerto ${serverFS.address().port}`);
-    });
-    serverFS.on('error', error => console.log(`Error en servidor ${error}`));
-} else if (DB === "MongoDB") {
-    mongoose.connect('mongodb+srv://CoderUser:123@clustermateochavez38140.scwmyko.mongodb.net/eccomerce?retryWrites=true&w=majority', err => {
-        err ? console.log(err) : console.log("Base conectada a Mongo correctamente")
-    })
-} else {
-    console.log("Valor incorrecto en la variable DB, no se pudo conectar correctamente");
+const PORT = 8080;
+const serverFS = app.listen(PORT, () => {
+    console.log(`Servidor escuchando en el puerto ${serverFS.address().port}`);
+});
+serverFS.on('error', error => console.log(`Error en servidor ${error}`));
+if (DB === "MongoDB") {
+    mongoose.connect('mongodb+srv://CoderUser:123@clustermateochavez38140.scwmyko.mongodb.net/eccomerce?retryWrites=true&w=majority', err => { err ? console.log(err) : console.log("Base conectada a Mongo correctamente")})
 }
